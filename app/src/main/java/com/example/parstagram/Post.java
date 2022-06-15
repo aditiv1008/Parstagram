@@ -5,6 +5,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
+
 @ParseClassName("Post")
 public class Post extends ParseObject {
 
@@ -19,7 +22,7 @@ public class Post extends ParseObject {
     public void setDescription(String description) {
         put(KEY_DESCRIPTION,description);
     }
-
+    public Post (){}
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
     }
