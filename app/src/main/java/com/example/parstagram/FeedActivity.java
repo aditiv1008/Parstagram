@@ -51,7 +51,7 @@ public class FeedActivity extends AppCompatActivity {
                 adapter.clear();
                queryPosts();
                adapter.notifyDataSetChanged();
-                swipeContainer.setRefreshing(false);
+               swipeContainer.setRefreshing(false);
             }
         });
         // Configure the refreshing colors
@@ -79,27 +79,27 @@ public class FeedActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        fragment = new PostsFragment();
-                        break;
-                    case R.id.action_compose:
-                        fragment = new ComposeFragment();
-                        break;
-                    case R.id.action_profile:
-                    default:
-                       fragment = new ComposeFragment();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.rlContainer, fragment).commit();
-                return true;
-
-            }
-        });
+//        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                Fragment fragment;
+//                switch (item.getItemId()) {
+//                    case R.id.action_home:
+//                        fragment = new PostsFragment();
+//                        break;
+//                    case R.id.action_compose:
+//                        fragment = new ComposeFragment();
+//                        break;
+//                    case R.id.action_profile:
+//                    default:
+//                       fragment = new ComposeFragment();
+//                        break;
+//                }
+//                getSupportFragmentManager().beginTransaction().replace(R.id.rlContainer, fragment).commit();
+//                return true;
+//
+//            }
+//        });
 
     }
 

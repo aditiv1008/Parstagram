@@ -13,12 +13,14 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private Button btnsignUp;
 
 
 
@@ -31,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             goMainActivity();
         }
 
-
+        btnsignUp = findViewById(R.id.btnSignup);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -42,6 +44,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+
+      /*  btnsignUp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String username=  etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                signUp(username, password);
+            }
+        });*/
 
     }
 
@@ -60,7 +70,27 @@ public class LoginActivity extends AppCompatActivity {
 
         });
     }
+   /* public void signUp(String username, String password) {
+        ParseUser user = new ParseUser();
+// Set core properties
+        user.setUsername("joestevens");
+        user.setPassword("secret123");
+        user.setEmail("email@example.com");
+// Set custom properties
+        user.put("phone", "650-253-0000");
+// Invoke signUpInBackground
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                   goMainActivity();
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
 
+                }
+            }
+        });
+    } */
     private void goMainActivity() {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);

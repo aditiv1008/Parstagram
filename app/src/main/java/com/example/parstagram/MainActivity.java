@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public void gotofeedfrag(){
+        bottomNavigation.setSelectedItemId(R.id.action_home);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new PostsFragment();
                         break;
                     case R.id.action_compose:
-                        fragment = new ComposeFragment();
+                        fragment = new ComposeFragment(MainActivity.this);
                         break;
                     case R.id.action_profile:
                     default:
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        bottomNavigation.setSelectedItemId(R.id.action_home);
 
        // queryPosts();
 

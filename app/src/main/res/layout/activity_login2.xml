@@ -59,6 +59,7 @@
         android:layout_weight="1"
         android:backgroundTint="@color/instapink"
         android:text="Sign Up"
+        android:onClick=".signUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 

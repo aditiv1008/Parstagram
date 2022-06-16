@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.parstagram.FeedActivity;
+import com.example.parstagram.LoginActivity;
 import com.example.parstagram.MainActivity;
 import com.example.parstagram.Post;
 import com.example.parstagram.R;
@@ -62,7 +65,10 @@ public class ComposeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ComposeFragment() {
+    private MainActivity mainActivity;
+
+    public ComposeFragment(MainActivity activity) {
+        mainActivity = activity;
         // Required empty public constructor
     }
 
@@ -74,16 +80,6 @@ public class ComposeFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ComposeFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ComposeFragment newInstance(String param1, String param2) {
-
-        ComposeFragment fragment = new ComposeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -207,6 +203,9 @@ public class ComposeFragment extends Fragment {
                     Log.i("MainActivity", "Post save was sucessful");
                     etDescription.setText("");
                     ivPostImage.setImageResource(0);
+
+                    // go back to PF
+                    mainActivity.gotofeedfrag();
                 }
             });
         }

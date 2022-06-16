@@ -70,6 +70,15 @@ public class PostsFragment extends Fragment {
         return fragment;
     }
 
+    public void onResume() {
+        super.onResume();
+        Log.w("", "onResume");
+
+        adapter.clear();
+
+        queryPosts();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,10 +128,6 @@ public class PostsFragment extends Fragment {
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         // query posts from Parstagram
-        queryPosts();
-
-
-
     }
 
     public void onLogoutButton(View view) {
@@ -132,8 +137,6 @@ public class PostsFragment extends Fragment {
 
         Intent i = new Intent(getContext(), LoginActivity.class);
         startActivity(i);
-
-
     }
 
     protected void queryPosts() {
