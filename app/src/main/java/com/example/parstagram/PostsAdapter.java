@@ -46,6 +46,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         return posts.size();
     }
 
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Post> list) {
+        posts.addAll(list);
+        notifyDataSetChanged();
+    }
+
 
 
 class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,6 +71,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
         ivImage = itemView.findViewById(R.id.ivImage);
         tvDescription = itemView.findViewById(R.id.tvDescription);
     }
+
+
 
     public void bind(Post post) {
         // Bind the post data to the view elements
