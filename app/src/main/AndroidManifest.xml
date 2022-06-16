@@ -43,10 +43,6 @@
         </provider>
 
         <activity
-            android:name=".SplashScreenActivity"
-            android:exported="false"
-            android:theme="@style/SplashTheme" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -58,7 +54,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-        <activity android:name=".FeedActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
