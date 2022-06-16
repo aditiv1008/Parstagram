@@ -56,9 +56,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FeedActivity"
+            android:name=".MainActivity"
             android:exported="false" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".FeedActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

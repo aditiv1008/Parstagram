@@ -127,7 +127,7 @@ CommentsAdapter adapter;
        Glide.with(this).load(post.getImage().getUrl()).into(ivDetailPicture);
 
         tvLikeCount.setText(post.getLikesCount());
-       tvTimeStamp.setText(post.getCreatedAt().toString());
+       tvTimeStamp.setText(post.getTime());
        tvUsername.setText(post.getUser().getUsername());
        tvCaption.setText(post.getDescription());
 

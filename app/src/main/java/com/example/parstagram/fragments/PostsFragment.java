@@ -1,56 +1,105 @@
-package com.example.parstagram;
+package com.example.parstagram.fragments;
+
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
+import android.view.ViewGroup;
 import android.widget.Toolbar;
 
-import com.example.parstagram.fragments.ComposeFragment;
-import com.example.parstagram.fragments.PostsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.parstagram.LoginActivity;
+import com.example.parstagram.Post;
+import com.example.parstagram.PostsAdapter;
+import com.example.parstagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link PostsFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class PostsFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
-    private BottomNavigationView bottomNavigation;
-
     private RecyclerView rvPosts;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public PostsFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment PostsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static PostsFragment newInstance(String param1, String param2) {
+        PostsFragment fragment = new PostsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_posts, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 adapter.clear();
-               queryPosts();
-               adapter.notifyDataSetChanged();
+                queryPosts();
+                adapter.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -61,62 +110,33 @@ public class FeedActivity extends AppCompatActivity {
                 android.R.color.holo_red_light);
 
 
-        rvPosts = findViewById((R.id.rvPosts));
+        rvPosts = view.findViewById((R.id.rvPosts));
 
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(this, allPosts);
+        adapter = new PostsAdapter(getContext(), allPosts);
 
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         // query posts from Parstagram
         queryPosts();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
-        setActionBar(toolbar);
 
-        bottomNavigation = findViewById(R.id.bottomNavigation);
-
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment;
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        fragment = new PostsFragment();
-                        break;
-                    case R.id.action_compose:
-                        fragment = new ComposeFragment();
-                        break;
-                    case R.id.action_profile:
-                    default:
-                       fragment = new ComposeFragment();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.rlContainer, fragment).commit();
-                return true;
-
-            }
-        });
 
     }
-
-
 
     public void onLogoutButton(View view) {
         // forget who's logged in
         ParseUser.logOut();
         ParseUser currentUser = ParseUser.getCurrentUser();
 
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(getContext(), LoginActivity.class);
         startActivity(i);
 
 
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
