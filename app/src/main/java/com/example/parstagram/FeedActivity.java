@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Toolbar;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,23 @@ public class FeedActivity extends AppCompatActivity {
         // query posts from Parstagram
         queryPosts();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setActionBar(toolbar);
+
+    }
+
+
+    public void onLogoutButton(View view) {
+        // forget who's logged in
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+
+
     }
 
     private void queryPosts() {
@@ -42,6 +64,7 @@ public class FeedActivity extends AppCompatActivity {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
+        query.include(Post.KEY_LIKED_BY);
         // limit query to latest 20 items
         query.setLimit(20);
         // order posts by creation date (newest first)

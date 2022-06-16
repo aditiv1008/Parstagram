@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 import org.w3c.dom.Text;
@@ -33,6 +34,7 @@ ImageButton ibComment;
 TextView tvUsername;
 ImageButton ibLike;
 RecyclerView rvComments;
+TextView tvLikeCount;
 private Post post;
 CommentsAdapter adapter;
 
@@ -74,6 +76,7 @@ CommentsAdapter adapter;
         ibLike = (ImageButton)  findViewById(R.id.ibLike);
         rvComments = (RecyclerView) findViewById(R.id.rvComments);
         tvUsername = (TextView) findViewById(R.id.tvUsername) ;
+        tvLikeCount = (TextView) findViewById(R.id.tvLikes);
 
 
 
@@ -89,6 +92,25 @@ CommentsAdapter adapter;
             }
         });
 
+        ibLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<ParseUser> likedBy = post.getLikedBy();
+              if(post.isLikedByCurrentUser()) {
+                  //unlike
+              post.unlike();
+               ibLike.setBackgroundResource(R.drawable.ufi_heart);
+              }else {
+                  post.like();
+                  ibLike.setBackgroundResource(R.drawable.ufi_heart_active);
+
+              }
+              post.setLikedBy(likedBy);
+              post.saveInBackground();
+              tvLikeCount.setText(post.getLikesCount());
+            }
+        });
+
 
       //  Drawable comment = this.getDrawable((R.drawable.ufi_comment));
       //  ibComment.setImageDrawable(comment);
@@ -98,7 +120,13 @@ CommentsAdapter adapter;
       rvComments.setLayoutManager(new LinearLayoutManager(this));
       rvComments.setAdapter(adapter);
 
+
+      if(post.isLikedByCurrentUser()) {
+          ibLike.setBackgroundResource(R.drawable.ufi_heart_active);
+      }
        Glide.with(this).load(post.getImage().getUrl()).into(ivDetailPicture);
+
+        tvLikeCount.setText(post.getLikesCount());
        tvTimeStamp.setText(post.getCreatedAt().toString());
        tvUsername.setText(post.getUser().getUsername());
        tvCaption.setText(post.getDescription());

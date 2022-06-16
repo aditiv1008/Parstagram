@@ -160,7 +160,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-       query.include(Post.KEY_USER);
+        query.include(Post.KEY_USER);
+        query.include(Post.KEY_LIKED_BY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
