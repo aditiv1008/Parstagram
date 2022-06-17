@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             goMainActivity();
         }
 
-        btnsignUp = findViewById(R.id.btnSignup);
+        btnsignUp = findViewById(R.id.btnSignupIntent);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -45,18 +45,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-      /*  btnsignUp.setOnClickListener(new View.OnClickListener() {
+       btnsignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String username=  etUsername.getText().toString();
-                String password = etPassword.getText().toString();
-                signUp(username, password);
+                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(i);
+
             }
-        });*/
+        });
 
     }
 
     public void loginUser(String username, String password) {
-        ParseUser.logInInBackground("aditi", "aditi", new LogInCallback() {
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
@@ -70,27 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
     }
-   /* public void signUp(String username, String password) {
-        ParseUser user = new ParseUser();
-// Set core properties
-        user.setUsername("joestevens");
-        user.setPassword("secret123");
-        user.setEmail("email@example.com");
-// Set custom properties
-        user.put("phone", "650-253-0000");
-// Invoke signUpInBackground
-        user.signUpInBackground(new SignUpCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                   goMainActivity();
-                } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
 
-                }
-            }
-        });
-    } */
     private void goMainActivity() {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);

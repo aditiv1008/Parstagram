@@ -2,20 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/backgroundtint"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_background"
-    android:orientation="vertical"
-    tools:context=".LoginActivity">
-
+    android:background = "@drawable/bg_background"
+   >
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="330dp"
         android:layout_height="58dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="260dp"
         android:layout_weight="1"
         android:background="@drawable/text_format"
         android:backgroundTint="#41FFFFFF"
@@ -25,60 +23,43 @@
         android:textColor="@color/white"
         android:textColorHint="#B7FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="330dp"
         android:layout_height="58dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="336dp"
         android:layout_weight="1"
         android:background="@drawable/text_format"
         android:backgroundTint="#41FFFFFF"
         android:ems="10"
         android:hint="Password"
-        android:textColor="@color/white"
         android:inputType="textPassword"
         android:padding="8dp"
+        android:textColor="@color/white"
         android:textColorHint="#B7FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="323dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="48dp"
-        android:layout_weight="1"
-        android:backgroundTint="#00FFFFFF"
-        android:fontFamily="sans-serif-medium"
-        android:text="Log In"
-        android:textColor="#B7FFFFFF"
-        android:textStyle="bold"
+        android:id="@+id/btnSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:background = "?android:attr/selectableItemBackgroundBorderless"
+        android:hint="SIGN UP"
+        android:theme="@style/Platform.MaterialComponents.Light"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword"
-        android:background = "?android:attr/selectableItemBackgroundBorderless"
-        app:strokeColor="#DAFFFFFF"
-        app:strokeWidth="2dp" />
-
-
-    <Button
-        android:id="@+id/btnSignupIntent"
-        android:layout_width="323dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="44dp"
-
-        android:backgroundTint="#00FFFFFF"
-        android:text="Don't have an account? Sign Up"
-        android:textColor="#B7FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        android:background = "?android:attr/selectableItemBackgroundBorderless"
-        app:strokeColor="#C6FFFFFF"
-        app:strokeWidth="2dp" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <ImageView
         android:id="@+id/imageView"

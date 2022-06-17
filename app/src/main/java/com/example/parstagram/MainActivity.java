@@ -42,10 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void gotofeedfrag(){
+    public void goToFeedFragment(){
         bottomNavigation.setSelectedItemId(R.id.action_home);
     }
-
+    public void goToProfile(){
+        bottomNavigation.setSelectedItemId(R.id.action_profile);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

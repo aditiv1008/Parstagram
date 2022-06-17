@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,7 @@ public class ComposeFragment extends Fragment {
 
     private EditText etDescription;
     private Button btnCaptureImage;
+    private ProgressBar pbLoading;
     private ImageView ivPostImage;
     private Button btnSubmit;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
@@ -101,6 +103,7 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        pbLoading = view.findViewById(R.id.pbLoading);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +118,7 @@ public class ComposeFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pbLoading.setVisibility(ProgressBar.VISIBLE);
                 String description = etDescription.getText().toString();
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
@@ -124,6 +128,7 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+               // pbLoading.setVisibility(ProgressBar.INVISIBLE);
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
             }
@@ -202,7 +207,7 @@ public class ComposeFragment extends Fragment {
                     ivPostImage.setImageResource(0);
 
                     // go back to PF
-                    mainActivity.gotofeedfrag();
+                    mainActivity.goToFeedFragment();
                 }
             });
         }

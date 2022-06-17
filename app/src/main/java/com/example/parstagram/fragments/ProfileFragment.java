@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.parstagram.LoginActivity;
 import com.example.parstagram.Post;
 import com.example.parstagram.PostsAdapter;
@@ -33,9 +36,14 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
     protected ProfileAdapter adapter;
     protected List<Post> allPosts;
+
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvProfile;
     private ParseUser userToFilterBy;
+    private ImageView ivprofilePic;
+    private TextView tvUsername;
+    Post post;
+
 
     public ProfileFragment(ParseUser userToFilterBy) {
        this.userToFilterBy = userToFilterBy;
@@ -82,6 +90,8 @@ public class ProfileFragment extends Fragment {
 
 
         rvProfile = view.findViewById((R.id.rvProfile));
+        ivprofilePic = view.findViewById(R.id.ivprofilePic2);
+        tvUsername = (TextView) view.findViewById(R.id.tvUsername3);
 
         allPosts = new ArrayList<>();
         adapter = new ProfileAdapter(getContext(), allPosts);
@@ -89,13 +99,12 @@ public class ProfileFragment extends Fragment {
         rvProfile.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvProfile.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        Glide.with(getContext()).load(R.drawable.default_avatar).circleCrop().into(ivprofilePic);
+        tvUsername.setText(ParseUser.getCurrentUser().getUsername());
         int numberOfColumns =3;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberOfColumns);
 
         rvProfile.setLayoutManager(gridLayoutManager);
-        // query posts from Parstagram
-        queryPosts();
     }
 
     public void onLogoutButton(View view) {

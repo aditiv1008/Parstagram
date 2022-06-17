@@ -76,10 +76,15 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         public void bind(Post post) {
             // Bind the post data to the view elements
 
+
+
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivUserPost);
+
             }
+
+
            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toolbar;
 
+import com.example.parstagram.EndlessRecyclerViewScrollListener;
 import com.example.parstagram.LoginActivity;
 import com.example.parstagram.Post;
 import com.example.parstagram.PostsAdapter;
@@ -25,8 +26,12 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Headers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +42,7 @@ public class PostsFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
     private RecyclerView rvPosts;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -76,7 +82,7 @@ public class PostsFragment extends Fragment {
 
         adapter.clear();
 
-        queryPosts();
+        queryPosts(0);
     }
 
     @Override
@@ -107,7 +113,7 @@ public class PostsFragment extends Fragment {
             @Override
             public void onRefresh() {
                 adapter.clear();
-                queryPosts();
+                queryPosts(0);
                 adapter.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
             }
@@ -126,9 +132,32 @@ public class PostsFragment extends Fragment {
 
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
         // query posts from Parstagram
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);
+
     }
+
+    public void loadNextDataFromApi(int offset) {
+        queryPosts(allPosts.size());
+            }
+
+
+
+
+
+
 
     public void onLogoutButton(View view) {
         // forget who's logged in
@@ -139,7 +168,7 @@ public class PostsFragment extends Fragment {
         startActivity(i);
     }
 
-    protected void queryPosts() {
+    protected void queryPosts(int skipAmount) {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -147,6 +176,8 @@ public class PostsFragment extends Fragment {
         query.include(Post.KEY_LIKED_BY);
         // limit query to latest 20 items
         query.setLimit(20);
+        query.setSkip(skipAmount);
+
         // order posts by creation date (newest first)
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts

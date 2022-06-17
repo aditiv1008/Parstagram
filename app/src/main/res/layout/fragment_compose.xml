@@ -41,6 +41,16 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCaptureImage"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
+
+
     <Button
         android:id="@+id/btnCaptureImage"
         android:layout_width="wrap_content"

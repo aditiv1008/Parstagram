@@ -8,14 +8,24 @@
     android:orientation="vertical">
 
     <TextView
-        android:id = "@+id/tvUsername"
-        android:layout_width= "match_parent"
+        android:id="@+id/tvUsername"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/tvTimeStamp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/ivDetailPicture"
@@ -23,14 +33,7 @@
         android:layout_height="200dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tvCaption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivDetailPicture" />
+
 
 
 
@@ -49,28 +52,45 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background ="@drawable/ufi_heart" />
 
-    <ImageButton
-        android:id="@+id/ibComment"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="30dp"
-        android:scaleType = "centerInside"
-       app:layout_constraintLeft_toRightOf="@id/ibLike"
-        app:layout_constraintTop_toTopOf="@id/ibLike"
-       android:background = "@drawable/ufi_comment" />
-
+        <ImageButton
+            android:id="@+id/ibComment"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/ufi_comment"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toRightOf="@id/ibLike"
+            app:layout_constraintTop_toTopOf="@id/ibLike" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/tvLikes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0 Likes" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="0 Likes"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvComments"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_width="396dp"
+        android:layout_height="422dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintStart_toStartOf="parent" />
 </LinearLayout>

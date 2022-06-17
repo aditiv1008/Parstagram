@@ -10,15 +10,16 @@
         <entry key="app/src/main/res/drawable/splash_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/text_format.xml" value="0.14583892822265623" />
         <entry key="app/src/main/res/layout/activity_compose_comment.xml" value="0.2586822509765625" />
-        <entry key="app/src/main/res/layout/activity_detailed_view.xml" value="0.27331848144531246" />
+        <entry key="app/src/main/res/layout/activity_detailed_view.xml" value="0.26628895184135976" />
         <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login2.xml" value="0.2510284423828125" />
+        <entry key="app/src/main/res/layout/activity_login2.xml" value="0.3204498291015625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32013092041015623" />
-        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.3285024154589372" />
+        <entry key="app/src/main/res/layout/activity_signup.xml" value="0.29376220703125006" />
+        <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.22854971770503096" />
         <entry key="app/src/main/res/layout/fragment_posts.xml" value="0.22603607177734378" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3080917358398438" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.28313253012048195" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.20766129032258066" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.27541656494140626" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.3465557362298546" />
         <entry key="app/src/main/res/layout/item_user_post.xml" value="0.18125" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.27698974609374993" />

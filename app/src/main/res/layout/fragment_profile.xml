@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".FeedActivity">
+    >
 
 
     <Button
@@ -24,17 +24,17 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="510dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="50dp">
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="49dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProfile"
@@ -69,7 +69,26 @@
         android:layout_marginTop="4dp"
         app:srcCompat="@drawable/nav_logo_whiteout" />
 
+    <ImageView
+        android:id="@+id/ivprofilePic2"
+        android:layout_width="83dp"
+        android:layout_height="78dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/tvUsername3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="144dp"
+        android:text="TextView"
+        android:fontFamily="@font/roboto_medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="16sp"/>
 
 
 </RelativeLayout>
