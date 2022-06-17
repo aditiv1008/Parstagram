@@ -48,7 +48,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:![recording12](https://user-images.githubusercontent.com/76992852/174412444-18e9bf02-4875-40b4-8f8a-f2aae6c0ef62.gif)
+Here's a walkthrough of implemented user stories:(![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/76992852/174413171-0c2cbc3d-960a-42c9-87e3-f74300bc1c36.gif)
+https://user-images.githubusercontent.com/76992852/174412444-18e9bf02-4875-40b4-8f8a-f2aae6c0ef62.gif)
 
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
