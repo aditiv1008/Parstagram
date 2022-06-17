@@ -75,6 +75,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     private ImageButton ibLike;
     private ImageButton ibComment;
     MainActivity activity;
+    User user = (User) User.getCurrentUser();
 
 
 
@@ -139,9 +140,34 @@ class ViewHolder extends RecyclerView.ViewHolder {
         ParseFile image = post.getImage();
         if (image != null) {
             Glide.with(context).load(image.getUrl()).into(ivImage);
-            Glide.with(context).load(image.getUrl()).circleCrop().into(ivprofilePic);
+            Glide.with(context).load(((User) post.getUser()).getProfilePhoto().getUrl()).circleCrop().into(ivprofilePic);
         }
-    
+        tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity) context;
+                activity.goToProfile((User) post.getUser());
+            }
+        });
+
+        ivprofilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity activity = (MainActivity) context;
+                activity.goToProfile((User) post.getUser());
+            }
+        });
+
+        tvUsername2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               MainActivity activity = (MainActivity) context;
+                 activity.goToProfile((User) post.getUser());
+
+            }
+        });
+
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

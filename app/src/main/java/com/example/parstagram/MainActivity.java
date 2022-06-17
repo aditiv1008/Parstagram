@@ -38,23 +38,23 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigation;
-
-
+    public BottomNavigationView bottomNavigation;
+    PostsFragment postsFragment = new PostsFragment();
+    ComposeFragment composeFragment = new ComposeFragment(MainActivity.this);
+    ProfileFragment  profileFragment = new ProfileFragment(ParseUser.getCurrentUser());
 
     public void goToFeedFragment(){
         bottomNavigation.setSelectedItemId(R.id.action_home);
     }
-    public void goToProfile(){
+    public void goToProfile(User user){
         bottomNavigation.setSelectedItemId(R.id.action_profile);
+        profileFragment.user = user;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
 
@@ -64,14 +64,15 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        fragment = new PostsFragment();
+                        fragment = postsFragment;
                         break;
                     case R.id.action_compose:
-                        fragment = new ComposeFragment(MainActivity.this);
+                        fragment = composeFragment;
                         break;
                     case R.id.action_profile:
                     default:
-                        fragment = new ProfileFragment(ParseUser.getCurrentUser());
+                        profileFragment.user = (User) ParseUser.getCurrentUser();
+                        fragment = profileFragment;
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.rlContainer, fragment).commit();

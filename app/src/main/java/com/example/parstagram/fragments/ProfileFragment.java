@@ -1,17 +1,25 @@
 package com.example.parstagram.fragments;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +32,12 @@ import com.example.parstagram.Post;
 import com.example.parstagram.PostsAdapter;
 import com.example.parstagram.ProfileAdapter;
 import com.example.parstagram.R;
+import com.example.parstagram.User;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -33,20 +45,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends BaseFragment {
     protected ProfileAdapter adapter;
     protected List<Post> allPosts;
 
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView rvProfile;
-    private ParseUser userToFilterBy;
     private ImageView ivprofilePic;
     private TextView tvUsername;
     Post post;
 
+    public User user = (User) User.getCurrentUser();
+
 
     public ProfileFragment(ParseUser userToFilterBy) {
-       this.userToFilterBy = userToFilterBy;
+       this.user = (User) userToFilterBy;
     }
 
     public void onResume() {
@@ -93,18 +106,46 @@ public class ProfileFragment extends Fragment {
         ivprofilePic = view.findViewById(R.id.ivprofilePic2);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername3);
 
+       ivprofilePic.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               launchCamera();
+           }
+       });
+
+
+
         allPosts = new ArrayList<>();
         adapter = new ProfileAdapter(getContext(), allPosts);
 
         rvProfile.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvProfile.setLayoutManager(new LinearLayoutManager(getContext()));
-        Glide.with(getContext()).load(R.drawable.default_avatar).circleCrop().into(ivprofilePic);
-        tvUsername.setText(ParseUser.getCurrentUser().getUsername());
+
         int numberOfColumns =3;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numberOfColumns);
 
         rvProfile.setLayoutManager(gridLayoutManager);
+
+        user.fetchInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                user = (User) object;
+                displayUserInfo();
+            }
+        });
+    }
+
+
+
+    public void displayUserInfo() {
+        ParseFile profilePhoto = user.getProfilePhoto();
+        if(profilePhoto != null) {
+            Glide.with(getContext()).load(user.getProfilePhoto().getUrl()).circleCrop().into(ivprofilePic);
+        } else {
+            Toast.makeText(getContext(), "Profile photo does not exist for" + user.getUsername(), Toast.LENGTH_SHORT).show();
+        }
+        tvUsername.setText(user.getUsername());
     }
 
     public void onLogoutButton(View view) {
@@ -122,7 +163,7 @@ public class ProfileFragment extends Fragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         query.include(Post.KEY_LIKED_BY);
-        query.whereEqualTo(Post.KEY_USER, userToFilterBy);
+        query.whereEqualTo(Post.KEY_USER, user);
         // limit query to latest 20 items
         query.setLimit(20);
         // order posts by creation date (newest first)
@@ -150,6 +191,25 @@ public class ProfileFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // by this point we have the camera photo on disk
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                // RESIZE BITMAP, see section below
+                // Load the taken image into a preview
+                Glide.with(getContext()).load(takenImage).circleCrop().into(ivprofilePic);
+                user.setProfilePhoto(new ParseFile(photoFile));
+                user.saveInBackground();
+               // ivprofilePic.setImageBitmap(takenImage);
+            } else { // Result was a failure
+                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
 
