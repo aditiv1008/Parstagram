@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     public void signUp(String username, String password) {
-        ParseUser user = new ParseUser();
+        ParseUser user =  new ParseUser();
 // Set core properties
         user.setUsername(username);
         user.setPassword(password);
@@ -45,18 +45,18 @@ public class SignupActivity extends AppCompatActivity {
 // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
-                if (e != null) {
-                    // Toast.makeText(SignupActivity.this, "Signup " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                if (e != null || user.getCurrentUser() != null) {
+
+                     Toast.makeText(SignupActivity.this, "Signup " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
                     // Sign up didn't succeed. Look at the ParseException
-                    goMainActivity();
+
                     // to figure out what went wrong
 
-
+                goMainActivity();
             }
         });
-
     }
     private void goMainActivity() {
         Intent i = new Intent(SignupActivity.this, MainActivity.class);

@@ -61,8 +61,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvLikes;
         private ImageButton ibLike;
         private ImageButton ibComment;
-        MainActivity activity;
-        User user = (User) User.getCurrentUser();
+        private MainActivity activity;
+        private User user = (User) User.getCurrentUser();
 
 
         public ViewHolder(@NonNull View itemView) {

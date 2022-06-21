@@ -15,9 +15,9 @@ import com.parse.SaveCallback;
 
 public class ComposeCommentActivity extends AppCompatActivity {
 
-    Post post;
-    Button btSave;
-    EditText etBody;
+    private Post post;
+    private Button btSave;
+    private EditText etBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

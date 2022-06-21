@@ -39,9 +39,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public BottomNavigationView bottomNavigation;
-    PostsFragment postsFragment = new PostsFragment();
-    ComposeFragment composeFragment = new ComposeFragment(MainActivity.this);
-    ProfileFragment  profileFragment = new ProfileFragment(ParseUser.getCurrentUser());
+    public PostsFragment postsFragment = new PostsFragment();
+    public ComposeFragment composeFragment = new ComposeFragment(MainActivity.this);
+    public ProfileFragment  profileFragment = new ProfileFragment(ParseUser.getCurrentUser());
 
     public void goToFeedFragment(){
         bottomNavigation.setSelectedItemId(R.id.action_home);

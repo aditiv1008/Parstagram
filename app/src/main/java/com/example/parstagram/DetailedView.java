@@ -27,16 +27,16 @@ import java.util.List;
 
 public class DetailedView extends AppCompatActivity {
 public static final String EXTRA_CONTACT = "EXTRA_CONTACT";
-ImageView ivDetailPicture;
-TextView tvCaption;
-TextView tvTimeStamp;
-ImageButton ibComment;
-TextView tvUsername;
-ImageButton ibLike;
-RecyclerView rvComments;
-TextView tvLikeCount;
+private ImageView ivDetailPicture;
+private TextView tvCaption;
+private TextView tvTimeStamp;
+private ImageButton ibComment;
+private TextView tvUsername;
+private ImageButton ibLike;
+private RecyclerView rvComments;
+private TextView tvLikeCount;
 private Post post;
-CommentsAdapter adapter;
+private CommentsAdapter adapter;
 
     void refreshComments() {
         ParseQuery<Comment> query =  ParseQuery.getQuery("Comment");
@@ -78,8 +78,6 @@ CommentsAdapter adapter;
         tvUsername = (TextView) findViewById(R.id.tvUsername) ;
         tvLikeCount = (TextView) findViewById(R.id.tvLikes);
 
-
-
         ibComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,10 +109,6 @@ CommentsAdapter adapter;
             }
         });
 
-
-      //  Drawable comment = this.getDrawable((R.drawable.ufi_comment));
-      //  ibComment.setImageDrawable(comment);
-
       post = (Post) getIntent().getParcelableExtra(EXTRA_CONTACT);
       adapter = new CommentsAdapter();
       rvComments.setLayoutManager(new LinearLayoutManager(this));
@@ -131,11 +125,7 @@ CommentsAdapter adapter;
        tvUsername.setText(post.getUser().getUsername());
        tvCaption.setText(post.getDescription());
 
-
         //load all comments for this post
         refreshComments();
-
-
-
     }
 }
